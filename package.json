@@ -1,0 +1,17 @@
+{
+  "name": "gas-fakes-workflow",
+  "version": "1.0.0",
+  "description": "Google Apps Script execution on GitHub Actions with gas-fakes",
+  "main": "sources/sample2.js",
+  "type": "module",
+  "scripts": {
+    "sample2": "node sources/sample2.js",
+    "sample3": "node sources/sample3.js"
+  },
+  "dependencies": {
+    "@mcpher/gas-fakes": "^2.3.0"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}
