@@ -27,19 +27,14 @@ jobs:
       - name: 'Set up Node.js'
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
-          cache-dependency-path: github-actions/package-lock.json
 
       - name: 'Install Dependencies'
-        run: |
-          cd github-actions
-          npm install
+        run: npm install
 
       - name: 'Run gas-fakes'
-        run: |
-          cd github-actions
-          npm run containerrun
+        run: npm run containerrun
         env:
           DEBUG: 'true'
           GOOGLE_CLOUD_PROJECT: ${{ vars.GOOGLE_CLOUD_PROJECT }}
