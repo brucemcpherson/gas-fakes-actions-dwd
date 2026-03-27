@@ -11,7 +11,7 @@ const runJob = () => {
     process.exit(0);
   } catch (error) {
     console.error('--- Test execution failed ---');
-    console.error(error);
+    console.error(error.stack || error.message || error);
     process.exit(1); 
   }
 };

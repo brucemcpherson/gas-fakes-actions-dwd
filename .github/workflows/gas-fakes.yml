@@ -48,4 +48,10 @@ jobs:
           EXTRA_SCOPES: ${{ vars.EXTRA_SCOPES }}
           UPSTASH_REDIS_REST_URL: ${{ vars.UPSTASH_REDIS_REST_URL }}
           UPSTASH_REDIS_REST_TOKEN: ${{ secrets.UPSTASH_REDIS_REST_TOKEN }}
-          # Add other variables as needed from repository secrets/vars
+          GF_MANIFEST_PATH: ${{ vars.GF_MANIFEST_PATH }}
+          GF_CLASP_PATH: ${{ vars.GF_CLASP_PATH }}
+          GF_SCRIPT_ID: ${{ vars.GF_SCRIPT_ID }}
+          GF_DOCUMENT_ID: ${{ vars.GF_DOCUMENT_ID }}
+          GF_CACHE_PATH: ${{ vars.GF_CACHE_PATH }}
+          GF_PROPERTIES_PATH: ${{ vars.GF_PROPERTIES_PATH }}
+          GF_PLATFORM_AUTH: ${{ vars.GF_PLATFORM_AUTH }}
