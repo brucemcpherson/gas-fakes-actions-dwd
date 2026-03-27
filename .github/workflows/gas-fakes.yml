@@ -6,6 +6,8 @@ on:
 jobs:
   run-gas-fakes:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
     permissions:
       contents: 'read'
       id-token: 'write' # Required for WIF
@@ -20,12 +22,7 @@ jobs:
         with:
           workload_identity_provider: ${{ secrets.WIF_PROVIDER_NAME }}
           service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
-          access_token_scopes: >-
-            https://www.googleapis.com/auth/cloud-platform,
-            https://www.googleapis.com/auth/drive,
-            https://www.googleapis.com/auth/spreadsheets,
-            https://www.googleapis.com/auth/userinfo.email,
-            openid
+          access_token_scopes: ${{ vars.DEFAULT_SCOPES }},${{ vars.EXTRA_SCOPES }}
 
       - name: 'Set up Node.js'
         uses: actions/setup-node@v4
