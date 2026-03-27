@@ -66,9 +66,10 @@ const enumerateFolders = () => {
       }
     } else {
       if (!folder.parentId) {
-        console.error(`expected folder ${folder.id} ${folder.name} to have a parent but found none`)
-      }
-      if (!folderMap.has(folder.parentId)) {
+        // This happens for folders like "My Mac" or other synced computers
+        console.log(`...treating folder ${folder.id} (${folder.name}) as a supplemental root (no parent)`)
+        folder.isRoot = true
+      } else if (!folderMap.has(folder.parentId)) {
         console.error(`expected folder ${folder.id} ${folder.name}  to have a parent but found none in map`)
       }
     }
@@ -87,7 +88,7 @@ const getAllFolders = () => {
   for (const folder of folderMap.values()) {
     const path = []
     let current = folder
-    while (current.parentId) {
+    while (current && current.parentId) {
       const parent = folderMap.get(current.parentId)
       if (!parent) {
         console.log('...skipping folder', current.id)
