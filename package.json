@@ -5,11 +5,10 @@
   "main": "sources/sample2.js",
   "type": "module",
   "scripts": {
-    "sample2": "node sources/sample2.js",
-    "sample3": "node sources/sample3.js"
+    "containerrun": "node sources/containerrun.js"
   },
   "dependencies": {
-    "@mcpher/gas-fakes": "^2.3.0"
+    "@mcpher/gas-fakes": "latest"
   },
   "engines": {
     "node": ">=24"
