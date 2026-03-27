@@ -22,7 +22,12 @@ jobs:
         with:
           workload_identity_provider: ${{ secrets.WIF_PROVIDER_NAME }}
           service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
-          access_token_scopes: 'https://www.googleapis.com/auth/cloud-platform'
+          access_token_scopes: >-
+            https://www.googleapis.com/auth/cloud-platform,
+            https://www.googleapis.com/auth/drive,
+            https://www.googleapis.com/auth/spreadsheets,
+            https://www.googleapis.com/auth/userinfo.email,
+            openid
 
       - name: 'Set up Node.js'
         uses: actions/setup-node@v4

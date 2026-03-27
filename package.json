@@ -5,7 +5,7 @@
   "main": "sources/sample2.js",
   "type": "module",
   "scripts": {
-    "containerrun": "node sources/containerrun.js"
+    "containerrun": "cd sources && node containerrun.js"
   },
   "dependencies": {
     "@mcpher/gas-fakes": "latest"
