@@ -1,0 +1,53 @@
+name: Run Gas Fakes (WIF)
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  run-gas-fakes:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write' # Required for WIF
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER_NAME }}
+          service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
+          access_token_scopes: 'https://www.googleapis.com/auth/cloud-platform'
+
+      - name: 'Set up Node.js'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: github-actions/package-lock.json
+
+      - name: 'Install Dependencies'
+        run: |
+          cd github-actions
+          npm install
+
+      - name: 'Run gas-fakes'
+        run: |
+          cd github-actions
+          node ./containerrun.js
+        env:
+          DEBUG: 'true'
+          GOOGLE_CLOUD_PROJECT: ${{ vars.GOOGLE_CLOUD_PROJECT }}
+          GOOGLE_WORKSPACE_SUBJECT: ${{ secrets.GOOGLE_WORKSPACE_SUBJECT }}
+          AUTH_TYPE: ${{ vars.AUTH_TYPE || 'dwd' }}
+          GOOGLE_SERVICE_ACCOUNT_NAME: ${{ vars.GOOGLE_SERVICE_ACCOUNT_NAME || 'gas-fakes-sa' }}
+          DEFAULT_SCOPES: ${{ vars.DEFAULT_SCOPES }}
+          EXTRA_SCOPES: ${{ vars.EXTRA_SCOPES }}
+          UPSTASH_REDIS_REST_URL: ${{ vars.UPSTASH_REDIS_REST_URL }}
+          UPSTASH_REDIS_REST_TOKEN: ${{ secrets.UPSTASH_REDIS_REST_TOKEN }}
+          # Add other variables as needed from repository secrets/vars
